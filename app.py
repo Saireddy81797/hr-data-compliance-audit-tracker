@@ -1,56 +1,55 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from utils.audit_functions import audit_employee_data, department_summary
+from utils.audit_functions import audit_employee_data
 
-st.set_page_config(page_title="HR Data Compliance & Audit Tracker", layout="wide")
+# ------------------------------------------------
+# 🌐 Page setup
+st.set_page_config(page_title="HR Data Compliance Tracker 🗄️", page_icon="🧾", layout="wide")
 
 st.title("🧾 HR Data Compliance & Audit Tracker")
-st.write("Easily audit employee compliance documents and visualize organization-wide HR readiness.")
+st.markdown("#### Track and analyze employee document compliance across departments in real time.")
 
-# --- File Upload ---
-st.sidebar.header("Upload Employee Data")
-uploaded_file = st.sidebar.file_uploader("Upload CSV file", type=["csv"])
+# ------------------------------------------------
+# 📂 Upload or load default data
+st.sidebar.header("📁 Upload Employee Data")
+uploaded_file = st.sidebar.file_uploader("Upload CSV File", type=["csv"])
 
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
 else:
-    st.sidebar.info("Using sample dataset from /data folder.")
+    st.sidebar.info("No file uploaded. Loading sample data...")
     df = pd.read_csv("data/employee_records.csv")
 
-# --- Audit Employee Data ---
-audited_df = audit_employee_data(df)
-dept_summary = department_summary(audited_df)
+# ------------------------------------------------
+# 🧮 Audit employee compliance
+try:
+    audited_df = audit_employee_data(df)
+except KeyError as e:
+    st.error(f"❌ Missing expected column: {e}")
+    st.stop()
 
-st.subheader("📋 Employee Compliance Report")
-st.dataframe(audited_df, use_container_width=True)
+# ------------------------------------------------
+# 🎯 Sidebar filters
+st.sidebar.header("🔍 Filters")
+selected_dept = st.sidebar.selectbox("Filter by Department", ["All"] + sorted(audited_df["Department"].unique()))
+if selected_dept != "All":
+    audited_df = audited_df[audited_df["Department"] == selected_dept]
 
-# --- Stats ---
-col1, col2, col3 = st.columns(3)
-with col1:
-    total = len(audited_df)
-    st.metric("Total Employees", total)
-with col2:
-    compliant = (audited_df['Status'] == 'Compliant').sum()
-    st.metric("Compliant Employees", compliant)
-with col3:
-    st.metric("Compliance Rate (%)", round((compliant / total) * 100, 2))
+show_only_noncompliant = st.sidebar.checkbox("Show Only Non-Compliant Employees")
+if show_only_noncompliant:
+    audited_df = audited_df[audited_df["Compliance_Score (%)"] < 100]
 
-# --- Department-Level Chart ---
-st.subheader("🏢 Department-wise Compliance Overview")
-fig = px.bar(dept_summary, x='Department', y='Avg_Department_Score', color='Avg_Department_Score',
-             color_continuous_scale='Blues', title='Average Compliance by Department')
-st.plotly_chart(fig, use_container_width=True)
+# ------------------------------------------------
+# 📊 Top metrics
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("👥 Total Employees", len(audited_df))
+col2.metric("📈 Avg Compliance (%)", round(audited_df["Compliance_Score (%)"].mean(), 1))
+col3.metric("✅ Fully Compliant", (audited_df["Compliance_Score (%)"] == 100).sum())
+col4.metric("⚠️ Non-Compliant", (audited_df["Compliance_Score (%)"] < 100).sum())
 
-# --- Non-Compliant Employees ---
-st.subheader("⚠️ Non-Compliant Employees")
-non_compliant = audited_df[audited_df['Status'] == 'Non-Compliant']
-if len(non_compliant) > 0:
-    st.dataframe(non_compliant, use_container_width=True)
-else:
-    st.success("✅ All employees are fully compliant!")
+st.markdown("---")
 
-# --- Download Report ---
-st.subheader("📤 Download Audited Report")
-csv = audited_df.to_csv(index=False).encode('utf-8')
-st.download_button("Download CSV Report", csv, "audited_compliance_report.csv", "text/csv")
+# ------------------------------------------------
+# 📈 Charts
+pie = px.pie(audited_df, names='Department', values='Compliance_Score (%)', title='Department-wise Compliance Shar
