@@ -52,4 +52,47 @@ st.markdown("---")
 
 # ------------------------------------------------
 # 📈 Charts
-pie = px.pie(audited_df, names='Department', values='Compliance_Score (%)', title='Department-wise Compliance Shar
+
+# Pie chart - Department-wise Compliance Share
+pie = px.pie(
+    audited_df,
+    names='Department',
+    values='Compliance_Score (%)',
+    title='Department-wise Compliance Share'
+)
+st.plotly_chart(pie, use_container_width=True)
+
+# Bar chart - Average Compliance by Department
+bar = px.bar(
+    audited_df.groupby("Department")["Compliance_Score (%)"].mean().reset_index(),
+    x="Department",
+    y="Compliance_Score (%)",
+    color="Department",
+    title="Average Compliance by Department"
+)
+st.plotly_chart(bar, use_container_width=True)
+
+# ------------------------------------------------
+# 📋 Data Table
+st.subheader("📋 Employee Compliance Details")
+st.dataframe(
+    audited_df.style.background_gradient(subset=["Compliance_Score (%)"], cmap="RdYlGn"),
+    use_container_width=True
+)
+
+# ------------------------------------------------
+# 💡 Insights
+st.subheader("💡 Compliance Insights")
+avg_score = audited_df["Compliance_Score (%)"].mean()
+if avg_score < 80:
+    st.warning("⚠️ Overall compliance is below optimal levels. Please review incomplete document submissions.")
+else:
+    st.success("✅ Great job! Most employees are compliant with documentation requirements.")
+
+# ------------------------------------------------
+# 🧾 Footer
+st.markdown("---")
+st.markdown(
+    "<center>Developed by <b>Byreddy Sai Reddy</b> | HR Data Compliance & Audit Tracker © 2025</center>",
+    unsafe_allow_html=True,
+)
