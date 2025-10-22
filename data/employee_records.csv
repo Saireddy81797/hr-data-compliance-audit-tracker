@@ -1,6 +1,26 @@
-Employee_ID,Name,Department,Joining_Date,Aadhaar_Submitted,PAN_Submitted,Offer_Letter_Submitted,Tax_Form_Submitted
-E001,Ananya Sharma,Finance,2022-03-14,Yes,Yes,Yes,No
-E002,Rahul Mehta,Engineering,2021-08-23,No,Yes,Yes,Yes
-E003,Divya Reddy,HR,2023-01-05,Yes,No,No,No
-E004,Vikram Rao,Sales,2022-09-12,Yes,Yes,Yes,Yes
-E005,Kavya Iyer,Support,2021-05-11,No,No,Yes,No
+Employee_ID,Employee_Name,Aadhaar_Submitted,PAN_Submitted,Bank_Details_Updated,NDA_Signed,Joining_Date,Department
+E001,Ananya Sharma,Yes,Yes,Yes,Yes,2021-03-15,HR
+E002,Rahul Mehta,Yes,No,Yes,Yes,2022-01-10,Finance
+E003,Neha Singh,Yes,Yes,No,Yes,2021-08-22,Engineering
+E004,Arjun Reddy,No,Yes,Yes,No,2023-02-01,IT
+E005,Priya Verma,Yes,No,No,Yes,2022-11-30,HR
+E006,Karan Patel,Yes,Yes,Yes,Yes,2020-07-19,Marketing
+E007,Isha Gupta,No,No,No,No,2024-01-10,Operations
+E008,Vikram Das,Yes,Yes,Yes,No,2023-03-22,Finance
+E009,Meena Nair,Yes,Yes,Yes,Yes,2021-05-17,Legal
+E010,Suresh Iyer,No,Yes,No,Yes,2022-04-14,HR
+E011,Ritika Rao,Yes,No,Yes,Yes,2021-09-25,Engineering
+E012,Harsh Jain,Yes,Yes,Yes,Yes,2020-12-02,Finance
+E013,Aditi Ghosh,No,No,Yes,Yes,2023-07-11,IT
+E014,Aman Kumar,Yes,Yes,No,No,2024-06-09,HR
+E015,Tanvi Desai,Yes,Yes,Yes,Yes,2021-10-15,Engineering
+E016,Ravi Pillai,Yes,No,Yes,No,2022-02-20,Operations
+E017,Shruti Rao,No,Yes,Yes,Yes,2023-08-03,Finance
+E018,Kavya Menon,Yes,Yes,No,Yes,2021-12-01,Legal
+E019,Nikhil Tiwari,No,No,Yes,Yes,2023-05-18,Marketing
+E020,Pooja Shah,Yes,Yes,Yes,No,2022-09-10,HR
+E021,Manish Yadav,Yes,Yes,No,Yes,2021-11-05,Engineering
+E022,Divya Rani,Yes,Yes,Yes,Yes,2020-06-14,Finance
+E023,Sanjay Kumar,No,No,No,No,2024-01-21,Operations
+E024,Megha Joshi,Yes,Yes,Yes,Yes,2022-08-17,IT
+E025,Deepak Mishra,Yes,No,Yes,Yes,2023-04-25,HR
