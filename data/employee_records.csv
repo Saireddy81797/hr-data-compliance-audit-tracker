@@ -1,0 +1,6 @@
+Employee_ID,Name,Department,Joining_Date,Aadhaar_Submitted,PAN_Submitted,Offer_Letter_Submitted,Tax_Form_Submitted
+E001,Ananya Sharma,Finance,2022-03-14,Yes,Yes,Yes,No
+E002,Rahul Mehta,Engineering,2021-08-23,No,Yes,Yes,Yes
+E003,Divya Reddy,HR,2023-01-05,Yes,No,No,No
+E004,Vikram Rao,Sales,2022-09-12,Yes,Yes,Yes,Yes
+E005,Kavya Iyer,Support,2021-05-11,No,No,Yes,No
