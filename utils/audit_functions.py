@@ -21,7 +21,7 @@ def audit_employee_data(df):
         'Offer_Letter_Submitted', 'Tax_Form_Submitted',
         'Joining_Date', 'Department'
     ]
-    
+
     missing_cols = [col for col in expected_cols if col not in df.columns]
     if missing_cols:
         raise KeyError(f"❌ Missing expected column(s): {', '.join(missing_cols)}")
